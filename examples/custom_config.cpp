@@ -12,11 +12,11 @@
 #include <cstdio>	//printf
 #include <utility>	//std::forward
 
-#include "tt/color.hpp"	//Macro colors
 #include "tt/types.hpp"
 #include "tt/log.hpp"	//log<>
 #include "tt/tt.hpp"	//default definition
-
+//Must come after tt/tt.hpp otherwise all definition will be removed
+#include "tt/color.hpp"	//Macro colors
 /**
  * Optional: define a namespace to your configuration
  */
@@ -35,7 +35,7 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	//Level			//Long name		//Short name //Color definition
 	{type::error, 		"ERROR", 		"ERRO",	BG_RED},
 	{type::warning,		"WARNING", 		"WARN",	BG_YELLOW},
-	{type::deprecated, 	"DEPRECATED", 	"DEPR",	BRIG_BG_YELLOW},
+	{type::deprecated, 	"DEPRECATED", 	"DEPR",	BG_BRIG_YELLOW},
 	{type::status, 		"STATUS", 		"STAT", BG_GREEN},
 	{type::debug, 		"DEBUG", 		"DEBG",	BG_BLUE}
 };
@@ -47,15 +47,15 @@ static constexpr const unsigned size_config = sizeof(type_config) / sizeof(type_
  * Configuration
  */
 static constexpr const Tree_Trunks::config<type, size_config> config = {
-	.use_color = true,			//Show (or not) colors
-	.time = true,				//Show (or not) timestamp
-	.module = true,				//Show (or not) module name (if present)
-	.ignore_module_level = true,	//Ignore (or not) modules level
-	.log_name = true,			//Show (or not) log name
-	.log_sname = false,			//Show (or not) short log name
-	.name = nullptr,			//Specify a name to the configuration (will be shown at the output)
-	.max_level = type::status,	//Define the configuration max_level
-	.tp_config = type_config	//The type configuration defined above
+	.use_color 			= true,			//Show (or not) colors
+	.time 				= true,			//Show (or not) timestamp
+	.module 			= true,			//Show (or not) module name (if present)
+	.ignore_module_level = true,		//Ignore (or not) modules level
+	.log_name 			= true,			//Show (or not) log name
+	.log_sname 			= false,		//Show (or not) short log name
+	.name 				= nullptr,		//Specify a name to the configuration (will be shown at the output)
+	.max_level 			= type::status,	//Define the configuration max_level
+	.tp_config 			= type_config	//The type configuration defined above
 };
 
 /**
@@ -69,6 +69,12 @@ constexpr std::size_t log(Args&& ... args) noexcept
 }
 
 }//Inverse
+
+/**
+ * Remove any color macro used
+ */
+#include "tt/uncolor.hpp"
+
 
 /**
  * Calling the main function

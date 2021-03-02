@@ -56,7 +56,7 @@ enum class type{
 static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	{type::error, 		"ERROR", 		"ERRO",	FG_RED},
 	{type::warning, 	"WARNING", 		"WARN",	FG_YELLOW},
-	{type::deprecated, 	"DEPRECATED", 	"DEPR",	BRIG_FG_YELLOW},
+	{type::deprecated, 	"DEPRECATED", 	"DEPR",	FG_BRIG_YELLOW},
 	{type::status, 		"STATUS", 		"STAT", FG_GREEN},
 	{type::debug, 		"DEBUG", 		"DEBG",	FG_BLUE}
 };
@@ -122,5 +122,7 @@ constexpr std::size_t none(Args&& ... args) noexcept
 }
 
 }//tt
+
+#include "uncolor.hpp"
 
 #endif /* TREE_TRUNKS_DEFAULT_HPP__ */

@@ -1,6 +1,10 @@
 #ifndef TREE_TRUNKS_COLOR_HPP__
 #define TREE_TRUNKS_COLOR_HPP__
 
+#ifdef TREE_TRUNKS_UNCOLOR_HPP__
+#undef TREE_TRUNKS_UNCOLOR_HPP__
+#endif /* TREE_TRUNKS_UNCOLOR_HPP__ */
+
 //https://en.wikipedia.org/wiki/ANSI_escape_code
 
 #define RESET				"0"
@@ -49,15 +53,15 @@
 #define FG_CYAN				"36"
 #define FG_WHITE			"37"
 #define FG_RGB				"38"
-#define DEFAULT_FG_COLOR	"39"
-#define BRIG_FG_BLACK		"90"
-#define BRIG_FG_RED			"91"
-#define BRIG_FG_GREEN		"92"
-#define BRIG_FG_YELLOW		"93"
-#define BRIG_FG_BLUE		"94"
-#define BRIG_FG_MAGENTA		"95"
-#define BRIG_FG_CYAN		"96"
-#define BRIG_FG_WHITE		"97"
+#define FG_DEFAULT			"39"
+#define FG_BRIG_BLACK		"90"
+#define FG_BRIG_RED			"91"
+#define FG_BRIG_GREEN		"92"
+#define FG_BRIG_YELLOW		"93"
+#define FG_BRIG_BLUE		"94"
+#define FG_BRIG_MAGENTA		"95"
+#define FG_BRIG_CYAN		"96"
+#define FG_BRIG_WHITE		"97"
 //Background
 #define BG_BLACK			"40"
 #define BG_RED				"41"
@@ -68,18 +72,14 @@
 #define BG_CYAN				"46"
 #define BG_WHITE			"47"
 #define BG_RGB				"48"
-#define DEFAULT_BG_COLOR	"49"
-#define BRIG_BG_BLACK		"100"
-#define BRIG_BG_RED			"101"
-#define BRIG_BG_GREEN		"102"
-#define BRIG_BG_YELLOW		"103"
-#define BRIG_BG_BLUE		"104"
-#define BRIG_BG_MAGENTA		"105"
-#define BRIG_BG_CYAN		"106"
-#define BRIG_BG_WHITE		"107"
-
-#define xstr(X)		str(X)
-#define str(X)		#X
-
+#define BG_DEFAULT			"49"
+#define BG_BRIG_BLACK		"100"
+#define BG_BRIG_RED			"101"
+#define BG_BRIG_GREEN		"102"
+#define BG_BRIG_YELLOW		"103"
+#define BG_BRIG_BLUE		"104"
+#define BG_BRIG_MAGENTA		"105"
+#define BG_BRIG_CYAN		"106"
+#define BG_BRIG_WHITE		"107"
 
 #endif /* TREE_TRUNKS_COLOR_HPP__ */

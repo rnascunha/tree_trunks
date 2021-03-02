@@ -2,15 +2,21 @@
 
 **Tree Trunks** is a simple C++17 log system.  
 <img align="right" src="docs/img/tree_trunks.png">
- 
- 
+
+As features:
+
+* Compile time processing (as much as possible, all messages defined above *max level* you be removed);
+* Header only, works out of the box;
+* Create your own *log level*, definitions (colors, names...) and behaviour;
+* Concept of module, indentifing locally log name and managing *log levels*.
+
+> All coloring is made in a **ANSI escape sequeces** standard. Not all terminal support it, or support diffent features. [Here](https://en.wikipedia.org/wiki/ANSI_escape_code) you can explore a list of commands and terminal support.
+  
 ## Dependencies
 
 **Tree Trunks** depends only of a C++17 compiler.
 
-You can use [git](https://git-scm.com/) to download (as shown below).
-
-To compile the examples, you need to have [Cmake](https://cmake.org/) installed. 
+You can use [git](https://git-scm.com/) to download (as shown below), and to compile the examples, you need to have [CMake](https://cmake.org/) installed. 
 
 ## Download and compile
 
@@ -91,13 +97,25 @@ You can configure the default behaviour with the folliwing macros, and then incl
 
 #include "tt/tt.hpp"
 ```
+And the log (convenient) functions are, in a *printf-like* style:
+
+```
+tt::debug(/* stream output */, /* module */, format, ...);
+tt::status(/* stream output */, /* module */, format, ...);
+tt::deprecated(/* stream output */, /* module */, format, ...);
+tt::warning(/* stream output */, /* module */, format, ...);
+tt::error(/* stream output */, /* module */, format, ...);
+```
+All this functions have overload with/without `stream output` and `module`. `stream output` is defaulted to `stdout`.
+
 Use `tt/tt.hpp` as a template to make your own log configuration.
 
-> As the default configuration depends on macros (how to remove that?) its recomented that the lines above be put at a separate header (don't forget the *header guards*), and this new file be spread around the project.
+> As the default configuration depends on macros (how to remove that?) its recomended that the lines above be put at a separate header (don't forget the *header guards*), and this new file be spread around the project. Or pass the definition at command line.
  
 ### Modules
 
 The use of modules can be seen at the `modules` example:
+
 <img align="right" src="docs/img/modules.png">
 
 ```
@@ -108,7 +126,7 @@ $ ./modules
 Modules are a way to locally give the log a name and define a *log level*. To define a module:
 
 ```
-static constexpr tt::module debug_mod = {
+static constexpr tt::module <module_name> = {
 	.name = <name>,
 	.max_level = <log_level>,
 	.enable = true
@@ -143,7 +161,7 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	//Level			//Long name	//Short name	//Color definition
 	{type::error, 		"ERROR", 	"ERRO",		BG_RED},
 	{type::warning,		"WARNING", 	"WARN",		BG_YELLOW},
-	{type::deprecated, 	"DEPRECATED", 	"DEPR",		BRIG_BG_YELLOW},
+	{type::deprecated, 	"DEPRECATED", 	"DEPR",		BG_BRIG_YELLOW},
 	{type::status, 		"STATUS", 	"STAT", 	BG_GREEN},
 	{type::debug, 		"DEBUG", 	"DEBG",		BG_BLUE}
 };
@@ -155,15 +173,15 @@ static constexpr const unsigned size_config = sizeof(type_config) / sizeof(type_
  * Configuration
  */
 static constexpr const Tree_Trunks::config<type, size_config> config = {
-	.use_color = true,		//Show (or not) colors
-	.time = true,			//Show (or not) timestamp
-	.module = true,			//Show (or not) module name (if present)
+	.use_color 		= true,		//Show (or not) colors
+	.time 				= true,		//Show (or not) timestamp
+	.module				= true,		//Show (or not) module name (if present)
 	.ignore_module_level = true,	//Ignore (or not) modules level
-	.log_name = true,		//Show (or not) log name
-	.log_sname = false,		//Show (or not) short log name
-	.name = nullptr,		//Specify a name to the configuration (will be shown at the output)
-	.max_level = type::status,	//Define the configuration max_level
-	.tp_config = type_config	//The type configuration defined above
+	.log_name 			= true,		//Show (or not) log name
+	.log_sname 		= false,	//Show (or not) short log name
+	.name 				= nullptr,	//Specify a name to the configuration (will be shown at the output)
+	.max_level 		= type::status,	//Define the configuration max_level
+	.tp_config 		= type_config	//The type configuration defined above
 };
 ```
 All configurations are exaplained above. After everything set, it's desirable to define some convience functions,
@@ -176,7 +194,7 @@ constexpr std::size_t log(Args&& ... args) noexcept
 	return Tree_Trunks::log<type, MinType, config_size, config>(std::forward<Args>(args)...);
 }
 ```
-Check `tt/tt.hpp` to check other very convinient functions.
+Check `tt/tt.hpp` to examine how to make other very convinient functions.
 
 ### Custom type
 
@@ -209,3 +227,6 @@ enum class type{
 
 The remaning is just copy/paste from the previous example (like a apple pie recipe).
  
+## Others
+
+* There is a facility header `tt/color.hpp` with some (all?) **ANSI escape sequeces** defined. After using, include the `tt/uncolor.hpp` that will undefine everything, and prevent any macro side effect to your code. The `tt/color.hpp` also call this two headers, so if you are going to include it, do it after it (otherwise the `tt/color.hpp` will be unset by the `tt/uncolor.hpp` inside de default header. 

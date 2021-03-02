@@ -7,10 +7,9 @@
 #include <cstdio>	//printf
 #include <utility>	//std::forward
 
-#include "tt/color.hpp" //Macro colors
 #include "tt/types.hpp"
 #include "tt/log.hpp"	//log<>
-#include "tt/tt.hpp"	//default definition
+#include "tt/color.hpp" //Macro colors
 
 /**
  * Optional: define a namespace to your configuration
@@ -36,12 +35,12 @@ enum class type{
  */
 static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	//Level					//Long name		//Short name //Color definition
-	{type::carolina_reaper, "CAROLINE_REAPER", 	"CARE",	UNDERLINE ";" BLINK_SLOW ";" BRIG_BG_MAGENTA ";" BRIG_FG_WHITE},
-	{type::cayenne,			"CAYENNE", 			"CAYN",	BLINK_SLOW ";" BRIG_BG_RED ";" BRIG_FG_WHITE},
-	{type::tabasco, 		"TABASCO", 			"TABA",	BOLD ";" BRIG_BG_CYAN ";" BRIG_FG_WHITE},
-	{type::chipotle, 		"CHIPOTLE", 		"CHIP", ITALIC ";" BRIG_BG_YELLOW ";" BRIG_FG_WHITE},
-	{type::jalapeno, 		"JALAPENO", 		"JAPA",	BRIG_BG_GREEN ";" BRIG_FG_WHITE},
-	{type::poblano, 		"POBLANO", 			"POBL",	STRIKE ";" BRIG_BG_BLUE ";" BRIG_FG_WHITE},
+	{type::carolina_reaper, "CAROLINE_REAPER", 	"CARE",	UNDERLINE ";" BLINK_SLOW ";" BG_BRIG_MAGENTA ";" FG_BRIG_WHITE},
+	{type::cayenne,			"CAYENNE", 			"CAYN",	BLINK_SLOW ";" BG_BRIG_RED ";" FG_BRIG_WHITE},
+	{type::tabasco, 		"TABASCO", 			"TABA",	BOLD ";" BG_BRIG_CYAN ";" FG_BRIG_WHITE},
+	{type::chipotle, 		"CHIPOTLE", 		"CHIP", ITALIC ";" BG_BRIG_YELLOW ";" FG_BRIG_WHITE},
+	{type::jalapeno, 		"JALAPENO", 		"JAPA",	BG_BRIG_GREEN ";" FG_BRIG_WHITE},
+	{type::poblano, 		"POBLANO", 			"POBL",	STRIKE ";" BG_BRIG_BLUE ";" FG_BRIG_WHITE},
 };
 
 //At the time of writing, you must pass the size of the configuration array manually
@@ -51,15 +50,15 @@ static constexpr unsigned config_size = sizeof(type_config) / sizeof(type_config
  * Configuration log behavior
  */
 static constexpr const Tree_Trunks::config<type, config_size> config = {
-	.use_color = true,				//Show (or not) colors
-	.time = true,					//Show (or not) timestamp
-	.module = true,					//Show (or not) module name (if present)
-	.ignore_module_level = true,	//Ignore (or not) modules level
-	.log_name = true,				//Show (or not) log name
-	.log_sname = false,				//Show (or not) short log name
-	.name = nullptr,				//Specify a name to the configuration (will be shown at the output)
-	.max_level = type::poblano,		//Define the configuration max_level
-	.tp_config = type_config		//The type configuration defined above
+	.use_color 			= true,				//Show (or not) colors
+	.time 				= true,				//Show (or not) timestamp
+	.module 			= true,				//Show (or not) module name (if present)
+	.ignore_module_level = true,			//Ignore (or not) modules level
+	.log_name 			= true,				//Show (or not) log name
+	.log_sname 			= false,			//Show (or not) short log name
+	.name 				= nullptr,			//Specify a name to the configuration (will be shown at the output)
+	.max_level 			= type::poblano,	//Define the configuration max_level
+	.tp_config 			= type_config		//The type configuration defined above
 };
 
 /**
@@ -74,10 +73,10 @@ constexpr std::size_t log(Args&& ... args) noexcept
 
 }//Spicy
 
-constexpr void print()
-{
-
-}
+/**
+ * Remove any color macro used
+ */
+#include "tt/uncolor.hpp"
 
 int main()
 {
@@ -86,7 +85,7 @@ int main()
 
 	using namespace Spicy;
 	//Spicy logging...
-	log<type::red_chile>("This is a RED CHILE spice");	//Ignored because does't have a definition
+	log<type::red_chile>("This is a RED CHILE spice");	//Ignored because doesn't have a definition
 	log<type::poblano>("This is a POBLANO spice");
 	log<type::jalapeno>("This is a JALAPENO spice");
 	log<type::chipotle>("This is a CHIPOTLE spice");
