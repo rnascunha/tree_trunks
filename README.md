@@ -17,7 +17,7 @@ To compile the examples, you need to have [Cmake](https://cmake.org/) installed.
 First, you must download the library:
 
 ```
-$ git clone clone https://github.com/rnascunha/tree_trunks.git
+$ git clone https://github.com/rnascunha/tree_trunks.git
 $ cd tree_trunks
 ```
 
@@ -32,23 +32,15 @@ $ cd build
 
 $ cmake -Dexample=<tt_default|custom_config|custom_type|modules> ..
 $ make
-```
-
-To run **Tree Trunks** default example:
-
-```
-#build and compile
-$ cmake -Dexample=tt_default ..
-$ make
 
 #execute
-$ ./tt_default
+$ ./<example_name>
 ```
-
-## Using
+## Testing
 
 <img align="right" src="docs/img/apple_pie.png">
-As I think that the best way of learning something is using, let's go throght the examples. You see that use/configure **Three_Trunks** is like follow a delicious apple pie recipe.
+
+As I think that the best way of learning something is using, let's go throght the examples. You will realize that use/configure **Tree Trunks** is like follow a delicious apple pie recipe.
 
 ### Default
 
@@ -80,12 +72,12 @@ You can configure the default behaviour with the folliwing macros, and then incl
  * Uncometing any definition below will CHANGE the default behaviour
  */
 //#define TT_USE_COLOR 			false	///< Will remove any color settings
-//#define TT_USE_TIME				false	///< Will remove time output at log
+//#define TT_USE_TIME			false	///< Will remove time output at log
 //#define TT_USE_MODULE			false	///< Will show the module name (if present) at output
 //#define TT_IGNORE_MODULE_LEVEL	true	///< Will ignore any module max level setting
-//#define TT_USE_LOG_NAME			true	///< Will print the log name ("DEBUG", "STATUS", "WARNING"...)
+//#define TT_USE_LOG_NAME		true	///< Will print the log name ("DEBUG", "STATUS", "WARNING"...)
 //#define TT_USE_SHORT_LOG_NAME		false	///< Will not print short log name ("DEBG", "STAT", "WARN" ...)
-//#define TT_NAME					"MyLog"	///< Will set a name to the default configuration
+//#define TT_NAME			"MyLog"	///< Will set a name to the default configuration
 
 /**
  * Define a log level (uncomment just one line)
@@ -101,7 +93,7 @@ You can configure the default behaviour with the folliwing macros, and then incl
 ```
 Use `tt/tt.hpp` as a template to make your own log configuration.
 
-	As the default configuration depends on macros (how to remove that?) its recomented that the lines above be put at a separate header (don't forget the *header guards*), and this new file be spread around the project.
+> As the default configuration depends on macros (how to remove that?) its recomented that the lines above be put at a separate header (don't forget the *header guards*), and this new file be spread around the project.
  
 ### Modules
 
@@ -113,7 +105,7 @@ $ cmake -Dexample=modules ..
 $ make
 $ ./modules
 ```
-Modules are a way to locally give a name and define a *log level*. To define a module:
+Modules are a way to locally give the log a name and define a *log level*. To define a module:
 
 ```
 static constexpr tt::module debug_mod = {
@@ -122,7 +114,7 @@ static constexpr tt::module debug_mod = {
 	.enable = true
 };
 ```
-It will be used the `max_level` attribute to decide if the mensagem should or not be displayed (if this attibute be higher than the global definition, it will be ignored). You can change this behaviour setting `enable=false` or globally setting `ignore_module_level/TT_IGNORE_MODULE_LEVEL` equal true.
+The `max_level` attribute will decide if the menssage should or not be displayed (if this attibute is higher than the global definition, it will be ignored). You can change this behaviour setting `enable=false` or globally setting `ignore_module_level/TT_IGNORE_MODULE_LEVEL` equal to `true`.
 
 ### Custom configuration
 
@@ -135,7 +127,7 @@ $ cmake -Dexample=custom_config ..
 $ make
 $ ./custom_config
 ```
-Two now structres must be defined:
+Two new structres must be defined:
 
 ```
 /**
@@ -148,12 +140,12 @@ using type = tt::type;
  * As type::none doesn't have a definition, its always ignored
  */
 static constexpr const Tree_Trunks::type_config<type> type_config[] = {
-	//Level			//Long name		//Short name //Color definition
-	{type::error, 		"ERROR", 		"ERRO",	BG_RED},
-	{type::warning,		"WARNING", 		"WARN",	BG_YELLOW},
-	{type::deprecated, 	"DEPRECATED", 	"DEPR",	BRIG_BG_YELLOW},
-	{type::status, 		"STATUS", 		"STAT", BG_GREEN},
-	{type::debug, 		"DEBUG", 		"DEBG",	BG_BLUE}
+	//Level			//Long name	//Short name	//Color definition
+	{type::error, 		"ERROR", 	"ERRO",		BG_RED},
+	{type::warning,		"WARNING", 	"WARN",		BG_YELLOW},
+	{type::deprecated, 	"DEPRECATED", 	"DEPR",		BRIG_BG_YELLOW},
+	{type::status, 		"STATUS", 	"STAT", 	BG_GREEN},
+	{type::debug, 		"DEBUG", 	"DEBG",		BG_BLUE}
 };
 
 //At the time of writing, you must pass the size of the configuration array manually
@@ -163,13 +155,13 @@ static constexpr const unsigned size_config = sizeof(type_config) / sizeof(type_
  * Configuration
  */
 static constexpr const Tree_Trunks::config<type, size_config> config = {
-	.use_color = true,			//Show (or not) colors
-	.time = true,				//Show (or not) timestamp
-	.module = true,				//Show (or not) module name (if present)
+	.use_color = true,		//Show (or not) colors
+	.time = true,			//Show (or not) timestamp
+	.module = true,			//Show (or not) module name (if present)
 	.ignore_module_level = true,	//Ignore (or not) modules level
-	.log_name = true,			//Show (or not) log name
-	.log_sname = false,			//Show (or not) short log name
-	.name = nullptr,			//Specify a name to the configuration (will be shown at the output)
+	.log_name = true,		//Show (or not) log name
+	.log_sname = false,		//Show (or not) short log name
+	.name = nullptr,		//Specify a name to the configuration (will be shown at the output)
 	.max_level = type::status,	//Define the configuration max_level
 	.tp_config = type_config	//The type configuration defined above
 };
@@ -188,7 +180,7 @@ Check `tt/tt.hpp` to check other very convinient functions.
 
 ### Custom type
 
-The `custom_type` example is just as the `custom_config`, adding that we are going to define own *log levels*!
+The `custom_type` example is just as the `custom_config`, adding that we are going to define our own *log levels*!
 
 <img align="right" src="docs/img/custom_type.png">
 
@@ -215,5 +207,5 @@ enum class type{
 };
 ```
 
-The rest is just copy/paste from the previous example (like a apple pie recipe).
+The remaning is just copy/paste from the previous example (like a apple pie recipe).
  
