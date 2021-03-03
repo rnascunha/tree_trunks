@@ -1,6 +1,8 @@
 #ifndef TREE_TRUNKS_TYPES_HPP__
 #define TREE_TRUNKS_TYPES_HPP__
 
+#include "impl/meta_helper.hpp"
+
 namespace Tree_Trunks{
 
 template<typename Type>
@@ -11,8 +13,7 @@ struct type_config{
 	const char*	color;
 };
 
-template<typename Type,
-		unsigned N>
+template<typename Type>
 struct config{
 	bool			use_color = true;
 	bool			time = true;
@@ -23,14 +24,12 @@ struct config{
 	const char*		name = nullptr;
 	Type			max_level;
 
-	type_config<Type> const (&tp_config)[N];
-
-	constexpr unsigned size(){ return N; }
+	array_const<type_config<Type> const> const tp_config;
 
 	constexpr type_config<Type> const* get_type_config(Type tc) const noexcept
 	{
-		for(unsigned i = 0; i < N; i++)
-			if(tp_config[i].ltype == tc) return &tp_config[i];
+		for(unsigned i = 0; i < tp_config.size(); i++)
+			if(tp_config[i]->ltype == tc) return tp_config[i];
 
 		return nullptr;
 	}

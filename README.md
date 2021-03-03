@@ -5,9 +5,9 @@
 
 As features:
 
-* Compile time processing (as much as possible, all messages defined above *max level* you be removed);
+* Compile-time processing: as much as possible, all messages defined above *max level* will be removed;
 * Header only, works out of the box;
-* Create your own *log level*, definitions (colors, names...) and behaviour;
+* Create your own *log level*, definitions (*colors*, *names*...) and *behaviour*;
 * Concept of module, indentifing locally log name and managing *log levels*.
 
 > All coloring is made in a **ANSI escape sequeces** standard. Not all terminal support it, or support diffent features. [Here](https://en.wikipedia.org/wiki/ANSI_escape_code) you can explore a list of commands and terminal support.
@@ -16,11 +16,11 @@ As features:
 
 **Tree Trunks** depends only of a C++17 compiler.
 
-You can use [git](https://git-scm.com/) to download (as shown below), and to compile the examples, you need to have [CMake](https://cmake.org/) installed. 
+You can use [git](https://git-scm.com/) to download (as shown below), and, to compile the examples, you need to have [CMake](https://cmake.org/) installed. 
 
 ## Download and compile
 
-First, you must download the library:
+You can download **Tree Trunks** using `git`:
 
 ```
 $ git clone https://github.com/rnascunha/tree_trunks.git
@@ -132,7 +132,7 @@ static constexpr tt::module <module_name> = {
 	.enable = true
 };
 ```
-The `max_level` attribute will decide if the menssage should or not be displayed (if this attibute is higher than the global definition, it will be ignored). You can change this behaviour setting `enable=false` or globally setting `ignore_module_level/TT_IGNORE_MODULE_LEVEL` equal to `true`.
+The `max_level` attribute will decide if the message should or not be displayed (if this attibute is higher than the global definition, it will be ignored). You can change this behaviour setting `enable=false` or globally setting `ignore_module_level/TT_IGNORE_MODULE_LEVEL` equal to `true`.
 
 ### Custom configuration
 
@@ -145,7 +145,7 @@ $ cmake -Dexample=custom_config ..
 $ make
 $ ./custom_config
 ```
-Two new structres must be defined:
+Two new structures must be defined:
 
 ```
 /**
@@ -166,9 +166,6 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	{type::debug, 		"DEBUG", 	"DEBG",		BG_BLUE}
 };
 
-//At the time of writing, you must pass the size of the configuration array manually
-static constexpr const unsigned size_config = sizeof(type_config) / sizeof(type_config[0]);
-
 /**
  * Configuration
  */
@@ -184,14 +181,13 @@ static constexpr const Tree_Trunks::config<type, size_config> config = {
 	.tp_config 		= type_config	//The type configuration defined above
 };
 ```
-All configurations are exaplained above. After everything set, it's desirable to define some convience functions,
-to make the call easier:
+All configurations are exaplained above. After everything set, it's desirable to define some convience functions, to make the calls friendlier:
 
 ```
 template<type MinType, typename ...Args>
 constexpr std::size_t log(Args&& ... args) noexcept
 {
-	return Tree_Trunks::log<type, MinType, config_size, config>(std::forward<Args>(args)...);
+	return Tree_Trunks::log<type, MinType, config>(std::forward<Args>(args)...);
 }
 ```
 Check `tt/tt.hpp` to examine how to make other very convinient functions.
@@ -229,4 +225,4 @@ The remaning is just copy/paste from the previous example (like a apple pie reci
  
 ## Others
 
-* There is a facility header `tt/color.hpp` with some (all?) **ANSI escape sequeces** defined. After using, include the `tt/uncolor.hpp` that will undefine everything, and prevent any macro side effect to your code. The `tt/color.hpp` also call this two headers, so if you are going to include it, do it after it (otherwise the `tt/color.hpp` will be unset by the `tt/uncolor.hpp` inside de default header. 
+* There is a facility header `tt/color.hpp` with some (all?) **ANSI escape sequeces** defined. After using, include the `tt/uncolor.hpp` that will undefine everything, and prevent any macro side effect to your code. The `tt/tt.hpp` also call this two headers, so if you are going to include it, do it after this header (otherwise any color define will be unset inside de default header). 

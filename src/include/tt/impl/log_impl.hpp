@@ -9,8 +9,7 @@ namespace Tree_Trunks{
 
 template<typename Type,
 		Type LogType,
-		unsigned N,
-		config<Type, N> const& Config>
+		config<Type> const& Config>
 std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const char* format, va_list ap) noexcept
 {
 	if constexpr(LogType > Config.max_level) return 0;
@@ -56,15 +55,14 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 
 template<typename Type,
 		Type LogType,
-		unsigned N,
-		config<Type, N> const& Config>
+		config<Type> const& Config>
 std::size_t log(FILE* stream, const char* format, ...) noexcept
 {
 	constexpr module<Type> mod = {.max_level = LogType , .enable = false};
 
 	va_list arglist;
 	va_start(arglist, format);
-	std::size_t size = log<Type, LogType, N, Config>(stream, mod, format, arglist);
+	std::size_t size = log<Type, LogType, Config>(stream, mod, format, arglist);
 	va_end(arglist);
 
 	return size;
@@ -72,13 +70,12 @@ std::size_t log(FILE* stream, const char* format, ...) noexcept
 
 template<typename Type,
 		Type LogType,
-		unsigned N,
-		config<Type, N> const& Config>
+		config<Type> const& Config>
 std::size_t log(module<Type> const& mod, const char* format, ...) noexcept
 {
 	va_list arglist;
 	va_start(arglist, format);
-	std::size_t size = log<Type, LogType, N, Config>(stdout, mod, format, arglist);
+	std::size_t size = log<Type, LogType, Config>(stdout, mod, format, arglist);
 	va_end(arglist);
 
 	return size;
@@ -86,15 +83,14 @@ std::size_t log(module<Type> const& mod, const char* format, ...) noexcept
 
 template<typename Type,
 		Type LogType,
-		unsigned N,
-		config<Type, N> const& Config>
+		config<Type> const& Config>
 std::size_t log(const char* format, ...) noexcept
 {
 	constexpr module<Type> mod = {.max_level = LogType , .enable = false};
 
 	va_list arglist;
 	va_start(arglist, format);
-	std::size_t size = log<Type, LogType, N, Config>(stdout, mod, format, arglist);
+	std::size_t size = log<Type, LogType, Config>(stdout, mod, format, arglist);
 	va_end(arglist);
 
 	return size;

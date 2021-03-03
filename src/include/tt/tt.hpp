@@ -53,7 +53,7 @@ enum class type{
 	debug,
 };
 
-static constexpr const Tree_Trunks::type_config<type> type_config[] = {
+static constexpr Tree_Trunks::type_config<type> const type_config[] = {
 	{type::error, 		"ERROR", 		"ERRO",	FG_RED},
 	{type::warning, 	"WARNING", 		"WARN",	FG_YELLOW},
 	{type::deprecated, 	"DEPRECATED", 	"DEPR",	FG_BRIG_YELLOW},
@@ -61,7 +61,7 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	{type::debug, 		"DEBUG", 		"DEBG",	FG_BLUE}
 };
 
-static constexpr Tree_Trunks::config<type, 5> config = {
+static constexpr const Tree_Trunks::config<type> config = {
 	.use_color 				= TT_USE_COLOR,
 	.time 					= TT_USE_TIME,
 	.module 				= TT_USE_MODULE,
@@ -78,7 +78,7 @@ using module = Tree_Trunks::module<type>;
 template<type MinType, typename ...Args>
 constexpr std::size_t log(Args&& ... args) noexcept
 {
-	return Tree_Trunks::log<type, MinType, 5, config>(std::forward<Args>(args)...);
+	return Tree_Trunks::log<type, MinType, config>(std::forward<Args>(args)...);
 }
 
 /**

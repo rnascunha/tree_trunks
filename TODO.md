@@ -18,7 +18,7 @@
  	
 > :warning: is this even possible?
 
-* Remove the size template number manual dependecie. At config<>, log<> the N template type must be manually informed... 
+* ~Remove the size template number manual dependecie. At config<>, log<> the N template type must be manually informed...~ 
 * Make a better color/font compile time construct, without macros
 * Check color support at compile/runtime (if at run time, how to change config?)
 * type traits...

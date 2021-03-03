@@ -43,13 +43,10 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 	{type::poblano, 		"POBLANO", 			"POBL",	STRIKE ";" BG_BRIG_BLUE ";" FG_BRIG_WHITE},
 };
 
-//At the time of writing, you must pass the size of the configuration array manually
-static constexpr unsigned config_size = sizeof(type_config) / sizeof(type_config[0]);;
-
 /**
  * Configuration log behavior
  */
-static constexpr const Tree_Trunks::config<type, config_size> config = {
+static constexpr const Tree_Trunks::config<type> config = {
 	.use_color 			= true,				//Show (or not) colors
 	.time 				= true,				//Show (or not) timestamp
 	.module 			= true,				//Show (or not) module name (if present)
@@ -68,7 +65,7 @@ static constexpr const Tree_Trunks::config<type, config_size> config = {
 template<type MinType, typename ...Args>
 constexpr std::size_t log(Args&& ... args) noexcept
 {
-	return Tree_Trunks::log<type, MinType, config_size, config>(std::forward<Args>(args)...);
+	return Tree_Trunks::log<type, MinType, config>(std::forward<Args>(args)...);
 }
 
 }//Spicy
