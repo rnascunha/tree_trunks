@@ -42,6 +42,13 @@ struct module{
 	bool		enable = true;
 };
 
+enum class eol_type{
+	none = 0,			///< No new line /No reset terminal color
+	nl,					///< New line /No reset terminal color
+	rs,					///< No new line/Reset terminal color
+	nl_rs				///< New line/Reset terminal color
+};
+
 }//Tree_Trunks
 
 #endif /* TREE_TRUNKS_TYPES_HPP__ */
