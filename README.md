@@ -171,11 +171,10 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
  */
 static constexpr const Tree_Trunks::config<type, size_config> config = {
 	.use_color 		= true,		//Show (or not) colors
-
-	.time 				= true,		//Show (or not) timestamp
-	.module				= true,		//Show (or not) module name (if present)
-	.ignore_module_level = true,		//Ignore (or not) modules level
-	.log_name 			= true,		//Show (or not) log name
+	.time 			= true,		//Show (or not) timestamp
+	.module			= true,		//Show (or not) module name (if present)
+	.ignore_module_level 	= true,		//Ignore (or not) modules level
+	.log_name 		= true,		//Show (or not) log name
 	.log_sname 		= false,	//Show (or not) short log name
 	.name 			= nullptr,	//Specify a name to the configuration (will be shown at the output)
 	.max_level 		= type::status,	//Define the configuration max_level
