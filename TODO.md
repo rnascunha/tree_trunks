@@ -23,3 +23,4 @@
 * Check color support at compile/runtime (if at run time, how to change config?)
 * type traits...
 * Should template it the stream output?
+* C++20 reflexion (is it out?) to construct all convenient functions.

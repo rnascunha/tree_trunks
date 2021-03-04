@@ -10,7 +10,7 @@ As features:
 * Create your own *log level*, definitions (*colors*, *names*...) and *behaviour*;
 * Concept of module, indentifing locally log name and managing *log levels*.
 
-> All coloring is made in a **ANSI escape sequeces** standard. Not all terminal support it, or support diffent features. [Here](https://en.wikipedia.org/wiki/ANSI_escape_code) you can explore a list of commands and terminal support.
+> All coloring is made in a **ANSI escape sequeces** standard. Not all terminal support it, or support different features. [Here](https://en.wikipedia.org/wiki/ANSI_escape_code) you can explore a list of commands and terminal support.
   
 ## Dependencies
 
@@ -173,7 +173,7 @@ static constexpr const Tree_Trunks::config<type, size_config> config = {
 	.use_color 		= true,		//Show (or not) colors
 	.time 				= true,		//Show (or not) timestamp
 	.module				= true,		//Show (or not) module name (if present)
-	.ignore_module_level = true,	//Ignore (or not) modules level
+	.ignore_module_level = true,		//Ignore (or not) modules level
 	.log_name 			= true,		//Show (or not) log name
 	.log_sname 		= false,	//Show (or not) short log name
 	.name 				= nullptr,	//Specify a name to the configuration (will be shown at the output)
