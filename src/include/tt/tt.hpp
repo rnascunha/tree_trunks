@@ -88,6 +88,11 @@ constexpr void eol()
 	Tree_Trunks::eol<type, config, EOL>();
 }
 
+template<type Type, typename ...Args>
+constexpr void color(Args&& ...args) noexcept
+{
+	Tree_Trunks::color<type, Type, config>(std::forward<Args>(args)...);
+}
 /**
  * Convenience functions
  */
@@ -129,19 +134,19 @@ constexpr std::size_t none(Args&& ... args) noexcept
 }
 
 template<typename ...Args>
-constexpr void nl_rs(Args&&... args)
+constexpr void nl_rs(Args&&... args) noexcept
 {
 	eol<eolt::nl_rs>(std::forward<Args>(args)...);
 }
 
 template<typename ...Args>
-constexpr void nl(Args&&... args)
+constexpr void nl(Args&&... args) noexcept
 {
 	eol<eolt::nl>(std::forward<Args>(args)...);
 }
 
 template<typename ...Args>
-constexpr void rs(Args&&... args)
+constexpr void rs(Args&&... args) noexcept
 {
 	eol<eolt::rs>(std::forward<Args>(args)...);
 }

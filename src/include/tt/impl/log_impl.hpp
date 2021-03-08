@@ -8,6 +8,25 @@
 namespace Tree_Trunks{
 
 template<typename Type,
+		Type LogType,
+		config<Type> const& Config>
+void color(FILE* stream) noexcept
+{
+	constexpr auto const* config = Config.get_type_config(LogType);
+	if(!config) return;
+
+	fprintf(stream, "\e[%sm", config->color);
+}
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config>
+void color() noexcept
+{
+	color<Type, LogType, Config>(stdout);
+}
+
+template<typename Type,
 		config<Type> const& Config,
 		eol_type EOL = eol_type::nl_rs>
 void eol(FILE* stream [[maybe_unused]]) noexcept
@@ -53,7 +72,7 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 
 	std::size_t size = 0;
 	if constexpr(Config.use_color) /*should count color chars?*/
-		size += fprintf(stream, "\e[%sm", config->color);
+		fprintf(stream, "\e[%sm", config->color);
 
 	if constexpr(Config.time)
 		size += fprintf(stream, time_str, time_func());
@@ -77,10 +96,6 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 	size += vfprintf(stream, format, ap);
 
 	eol<Type, Config, EOL>(stream);
-//	if constexpr(Config.use_color)
-//		fprintf(stream, "\e[0m\n");
-//	else
-//		fprintf(stream, "\n");
 
 	return size;
 }

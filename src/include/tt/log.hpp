@@ -8,6 +8,16 @@
 namespace Tree_Trunks{
 
 template<typename Type,
+		Type LogType,
+		config<Type> const& Config>
+void color(FILE* stream) noexcept;
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config>
+void color() noexcept;
+
+template<typename Type,
 		config<Type> const& Config,
 		eol_type EOL = eol_type::nl_rs>
 void eol(FILE* stream) noexcept;

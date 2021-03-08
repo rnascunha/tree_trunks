@@ -1,8 +1,9 @@
 #/bin/bash
+#########################################################
+# Script will build/compile/execute ALL examples		#
+#########################################################
 
-examples_path=examples
-build_path=build
-example_list=(tt_default modules custom_type custom_config);
+example_list=(tt_default modules custom_type custom_config eol);
 
 if [ $# -ne 1 ]
 then
@@ -16,6 +17,9 @@ then
 	echo "Invalid PATH informed";
 	exit 1;
 fi
+
+examples_path="${1}/examples"
+build_path="${1}/build"
 
 if [ ! -d $examples_path ]
 then
@@ -35,7 +39,7 @@ make clean 1>&- 2>&-
 
 for exp in ${example_list[*]}; 
 do 
-	if [ ! -f ../${examples_path}/${exp}.cpp ]
+	if [ ! -f ${examples_path}/${exp}.cpp ]
 	then 
 		echo "${exp} example NOT found";
 		exit 1;
@@ -64,5 +68,5 @@ do
 	fi
 done
 
-echo "Evertything running OK";
+echo -e "-------------------\nEvertything running OK";
 exit 0;
