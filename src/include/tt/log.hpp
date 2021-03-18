@@ -30,6 +30,20 @@ void eol() noexcept;
 template<typename Type,
 		Type LogType,
 		config<Type> const& Config,
+		typename Func,
+		typename ...Args>
+void enable_if(Func func, Args&&... args);
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config,
+		typename Func,
+		typename ...Args>
+void enable_if(module<Type> const& mod, Func func, Args&&... args);
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config,
 		eol_type EOL = eol_type::nl_rs>
 std::size_t log(FILE* stream, module<Type> const& mod, const char* format, ...) noexcept;
 

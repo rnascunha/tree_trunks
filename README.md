@@ -169,7 +169,7 @@ static constexpr const Tree_Trunks::type_config<type> type_config[] = {
 /**
  * Configuration
  */
-static constexpr const Tree_Trunks::config<type, size_config> config = {
+static constexpr const Tree_Trunks::config<type> config = {
 	.use_color 		= true,		//Show (or not) colors
 	.time 			= true,		//Show (or not) timestamp
 	.module			= true,		//Show (or not) module name (if present)
@@ -180,16 +180,11 @@ static constexpr const Tree_Trunks::config<type, size_config> config = {
 	.max_level 		= type::status,	//Define the configuration max_level
 	.tp_config 		= type_config	//The type configuration defined above
 };
-```
-All configurations are exaplained above. After everything set, it's desirable to define some convience functions, to make the calls friendlier:
 
+#include "functions_conv.hpp"
 ```
-template<type MinType, typename ...Args>
-constexpr std::size_t log(Args&& ... args) noexcept
-{
-	return Tree_Trunks::log<type, MinType, config>(std::forward<Args>(args)...);
-}
-```
+All configurations are exaplained above. After everything set, it's desirable to define some convience functions, to make the calls friendlier. If will keep this name standard (log level=*type*, type_config<type>=*type_config* and config<type>=*config*), you can use the header `functions_conv.hpp` that will create lots of functions to you.
+
 Check `tt/tt.hpp` to examine how to make other very convinient functions.
 
 ### Custom type

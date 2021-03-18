@@ -3,7 +3,7 @@
 # Script will build/compile/execute ALL examples		#
 #########################################################
 
-example_list=(tt_default modules custom_type custom_config eol);
+example_list=(tt_default modules custom_type custom_config eol enable_if);
 
 if [ $# -ne 1 ]
 then

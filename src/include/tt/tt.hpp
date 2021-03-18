@@ -12,15 +12,15 @@
 #endif /* TT_LEVEL */
 
 #ifndef TT_USE_COLOR
-#define TT_USE_COLOR 	true
+#define TT_USE_COLOR 			true
 #endif /* TT_USE_COLOR */
 
 #ifndef TT_USE_TIME
-#define TT_USE_TIME		true
+#define TT_USE_TIME				true
 #endif /* TT_USE_TIME */
 
 #ifndef TT_USE_MODULE
-#define TT_USE_MODULE	true
+#define TT_USE_MODULE			true
 #endif /* TT_USE_TIME */
 
 #ifndef TT_IGNORE_MODULE_LEVEL
@@ -28,15 +28,15 @@
 #endif /* TT_IGNORE_MODULE_LEVEL */
 
 #ifndef TT_USE_LOG_NAME
-#define TT_USE_LOG_NAME	false
+#define TT_USE_LOG_NAME			false
 #endif /* TT_USE_LOG_NAME */
 
 #ifndef TT_USE_SHORT_LOG_NAME
-#define TT_USE_SHORT_LOG_NAME true
+#define TT_USE_SHORT_LOG_NAME 	true
 #endif /* TT_USE_SHORT_LOG_NAME */
 
 #ifndef TT_NAME
-#define TT_NAME	nullptr
+#define TT_NAME					nullptr
 #endif /* TT_NAME */
 
 /**
@@ -73,30 +73,11 @@ static constexpr const Tree_Trunks::config<type> config = {
 	.tp_config 				= type_config
 };
 
-using module = Tree_Trunks::module<type>;
-using eolt = Tree_Trunks::eol_type;
+#include "functions_conv.hpp"
 
-template<type MinType, eolt EOL = eolt::nl_rs, typename ...Args>
-constexpr std::size_t log(Args&& ... args) noexcept
-{
-	return Tree_Trunks::log<type, MinType, config, EOL>(std::forward<Args>(args)...);
-}
-
-template<eolt EOL = eolt::nl_rs>
-constexpr void eol()
-{
-	Tree_Trunks::eol<type, config, EOL>();
-}
-
-template<type Type, typename ...Args>
-constexpr void color(Args&& ...args) noexcept
-{
-	Tree_Trunks::color<type, Type, config>(std::forward<Args>(args)...);
-}
 /**
  * Convenience functions
  */
-
 template<eolt EOL = eolt::nl_rs, typename ...Args>
 constexpr std::size_t debug(Args&& ... args) noexcept
 {
@@ -131,24 +112,6 @@ template<eolt EOL = eolt::nl_rs, typename ...Args>
 constexpr std::size_t none(Args&& ... args) noexcept
 {
 	return log<type::none, EOL>(std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-constexpr void nl_rs(Args&&... args) noexcept
-{
-	eol<eolt::nl_rs>(std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-constexpr void nl(Args&&... args) noexcept
-{
-	eol<eolt::nl>(std::forward<Args>(args)...);
-}
-
-template<typename ...Args>
-constexpr void rs(Args&&... args) noexcept
-{
-	eol<eolt::rs>(std::forward<Args>(args)...);
 }
 
 }//tt

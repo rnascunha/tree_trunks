@@ -5,7 +5,7 @@ unset(example_file CACHE)
 
 if(NOT DEFINED example)
 	message(FATAL_ERROR 
-	"You must define a example [cmake -Dexample=<tt_default|custom_config|custom_type|modules|eol> ..")
+	"You must define a example [cmake -Dexample=<tt_default|custom_config|custom_type|modules|eol|enable_if> ..")
 endif()
 
 message("Example: " ${example})
@@ -14,7 +14,8 @@ if(${example} STREQUAL "custom_config"
 	OR ${example} STREQUAL custom_type
 	OR ${example} STREQUAL modules
 	OR ${example} STREQUAL tt_default
-	OR ${example} STREQUAL eol)
+	OR ${example} STREQUAL eol
+	OR ${example} STREQUAL enable_if)
 	message(STATUS "Example " ${example})
 	set(example_file ${example})
 endif()
@@ -23,7 +24,7 @@ unset(example CACHE)
 
 if(NOT DEFINED example_file)
 	message(FATAL_ERROR 
-	"You must define a example [cmake -Dexample=<tt_default|custom_config|custom_type|modules|eol> ..")
+	"You must define a example [cmake -Dexample=<tt_default|custom_config|custom_type|modules|eol|enable_if> ..")
 endif()
 
 message(STATUS "Building OS: " ${CMAKE_SYSTEM_NAME})

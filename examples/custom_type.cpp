@@ -59,14 +59,15 @@ static constexpr const Tree_Trunks::config<type> config = {
 };
 
 /**
- * This is the function that will be used to call the log.
- * Check "tt/tt.hpp" to check other convenient definitions
+ * Keep this name standard:
+ * * log level=type;
+ * * type_config<type>=type_config;
+ * * config<type>=config.
+ *
+ * This way you can use the following header to create lots of convenient functions
+ * to you. Check "tt/tt.hpp" header to examine other convenient definitions
  */
-template<type MinType, typename ...Args>
-constexpr std::size_t log(Args&& ... args) noexcept
-{
-	return Tree_Trunks::log<type, MinType, config>(std::forward<Args>(args)...);
-}
+#include "tt/functions_conv.hpp"
 
 }//Spicy
 

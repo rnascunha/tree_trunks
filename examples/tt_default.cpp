@@ -22,12 +22,12 @@
  * For example: if you set the level to "deprecated", messages level "status", "debug" and "none" will
  * be removed. ("none" is never showed, even if you set the level to "none").
  */
+//#define TT_LEVEL type::none
 //#define TT_LEVEL type::error
 //#define TT_LEVEL type::warning
 //#define TT_LEVEL type::deprecated
 //#define TT_LEVEL type::status			///< default
 //#define TT_LEVEL type::debug
-//#define TT_LEVEL type::none
 
 #include "tt/tt.hpp"
 

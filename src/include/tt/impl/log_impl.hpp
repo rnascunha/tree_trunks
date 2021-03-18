@@ -4,6 +4,7 @@
 #include "../log.hpp"
 #include "../port.hpp"
 #include <cstdarg>
+#include <utility>
 
 namespace Tree_Trunks{
 
@@ -54,6 +55,33 @@ template<typename Type,
 void eol() noexcept
 {
 	eol<Type, Config, EOL>(stdout);
+}
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config,
+		typename Func,
+		typename ...Args>
+void enable_if(module<Type> const& mod [[maybe_unused]], Func func, Args&&... args)
+{
+	if constexpr(LogType > Config.max_level) return;
+
+	if constexpr(!Config.ignore_module_level)
+		if (mod.enable && LogType > mod.max_level) return;
+
+	func(std::forward<Args>(args)...);
+}
+
+template<typename Type,
+		Type LogType,
+		config<Type> const& Config,
+		typename Func,
+		typename ...Args>
+void enable_if(Func func, Args&&... args)
+{
+	if constexpr(LogType > Config.max_level) return;
+
+	func(std::forward<Args>(args)...);
 }
 
 template<typename Type,
