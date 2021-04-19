@@ -16,7 +16,7 @@ void color(FILE* stream) noexcept
 	constexpr auto const* config = Config.get_type_config(LogType);
 	if(!config) return;
 
-	fprintf(stream, "\e[%sm", config->color);
+	fprintf(stream, "\x1b[%sm", config->color);
 }
 
 template<typename Type,
@@ -29,7 +29,7 @@ void color() noexcept
 
 template<typename Type,
 		config<Type> const& Config,
-		eol_type EOL = eol_type::nl_rs>
+		eol_type EOL /* = eol_type::nl_rs */>
 void eol(FILE* stream [[maybe_unused]]) noexcept
 {
 	if constexpr(EOL == eol_type::none) return;
@@ -38,12 +38,12 @@ void eol(FILE* stream [[maybe_unused]]) noexcept
 	else if constexpr(EOL == eol_type::rs)
 	{
 		if constexpr(Config.use_color)
-			fprintf(stream, "\e[0m");
+			fprintf(stream, "\x1b[0m");
 	}
 	else if constexpr(EOL == eol_type::nl_rs)
 	{
 		if constexpr(Config.use_color)
-			fprintf(stream, "\e[0m\n");
+			fprintf(stream, "\x1b[0m\n");
 		else
 			fprintf(stream, "\n");
 	}
@@ -51,7 +51,7 @@ void eol(FILE* stream [[maybe_unused]]) noexcept
 
 template<typename Type,
 		config<Type> const& Config,
-		eol_type EOL = eol_type::nl_rs>
+		eol_type EOL /* = eol_type::nl_rs */>
 void eol() noexcept
 {
 	eol<Type, Config, EOL>(stdout);
@@ -100,7 +100,7 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 
 	std::size_t size = 0;
 	if constexpr(Config.use_color) /*should count color chars?*/
-		fprintf(stream, "\e[%sm", config->color);
+		fprintf(stream, "\x1b[%sm", config->color);
 
 	if constexpr(Config.time)
 		size += fprintf(stream, time_str, time_func());
