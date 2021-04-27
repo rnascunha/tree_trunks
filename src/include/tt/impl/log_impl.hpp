@@ -105,7 +105,7 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 	if constexpr(Config.time)
 		size += fprintf(stream, time_str, time_func());
 
-	if constexpr(Config.name)
+	if constexpr(Config.name != nullptr)
 		size += fprintf(stream, "|%s", Config.name);
 
 	if constexpr(Config.module)
