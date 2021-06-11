@@ -164,7 +164,7 @@ template<typename Type,
 		eol_type EOL /* = eol_type::nl_rs */>
 std::size_t log(const char* format, ...) noexcept
 {
-	constexpr module<Type> mod = { /*.max_level = */LogType , /*.enable = */false};
+	constexpr module<Type> mod = {/*.name = */nullptr, /*.max_level = */LogType , /*.enable = */false};
 
 	va_list arglist;
 	va_start(arglist, format);
