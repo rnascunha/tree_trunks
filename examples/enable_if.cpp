@@ -23,8 +23,8 @@
  * Definition of modules, each one with it's own max_level
  */
 static constexpr tt::module my_mod = {
-	.name = "My Mod",
-	.max_level = tt::type::error
+	/*.name 		= */"My Mod",
+	/*.max_level 	= */tt::type::error
 };
 
 int main()

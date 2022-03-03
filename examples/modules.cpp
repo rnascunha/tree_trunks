@@ -16,30 +16,30 @@
  * Definition of modules, each one with it's own max_level
  */
 static constexpr tt::module debug_mod = {
-	.name = "Debug Mod",
-	.max_level = tt::type::debug
+	/*.name 		= */"Debug Mod",
+	/*.max_level 	= */tt::type::debug
 };
 
 static constexpr tt::module status_mod = {
-	.name = "Status Mod",
-	.max_level = tt::type::status
+	/*.name 		= */"Status Mod",
+	/*.max_level 	= */tt::type::status
 };
 
 static constexpr tt::module deprecated_mod = {
-	.name = "Deprecated Mod",
-	.max_level = tt::type::deprecated
+	/*.name 		= */"Deprecated Mod",
+	/*.max_level 	= */tt::type::deprecated
 };
 
 //This module will ignore deprecated messages
 static constexpr tt::module warning_mod = {
-	.name = "Warning Mod",
-	.max_level = tt::type::warning
+	/*.name 		= */"Warning Mod",
+	/*.max_level 	= */tt::type::warning
 };
 
 //This module will ignore deprecated messages
 static constexpr tt::module error_mod = {
-	.name = "Error Mod",
-	.max_level = tt::type::error
+		/*.name 		= */"Error Mod",
+	/*.max_level 	= */tt::type::error
 };
 
 /**

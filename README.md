@@ -27,7 +27,7 @@ $ git clone https://github.com/rnascunha/tree_trunks.git
 $ cd tree_trunks
 ```
 
-Now, just copy the folder `tt` inside `src/include` to your project, and point the include path accordingly.
+Now, just copy the folder `tt` inside `include` to your project, and point the include path accordingly. If you are using CMake, just use `add_subdirectory(<path_to_tree_trunks>)`.
 
 To test the examples, run:
 
@@ -36,12 +36,14 @@ To test the examples, run:
 $ mkdir build
 $ cd build
 
-$ cmake -Dexample=<tt_default|custom_config|custom_type|modules> ..
+$ cmake -DWITH_EXAMPLES=1 ..
 $ make
 
 #execute
-$ ./<example_name>
+$ ./examples/<example_name>
 ```
+All the examples are outputed to the `examples` directory.
+
 ## Testing
 
 <img align="right" src="docs/img/apple_pie.png">
@@ -53,9 +55,7 @@ As I think that the best way of learning something is using, let's go throght th
 The default configuration is made to use **Tree Trunks** out of the box. The `tt_default` examples is a good starting point.
 
 ```
-$ cmake -Dexample=tt_default ..
-$ make
-$ ./tt_default
+$ ./examples/tt_default
 ```
 <img align="right" src="docs/img/tt_default.png">
 
@@ -119,9 +119,7 @@ The use of modules can be seen at the `modules` example:
 <img align="right" src="docs/img/modules.png">
 
 ```
-$ cmake -Dexample=modules ..
-$ make
-$ ./modules
+$ ./examples/modules
 ```
 Modules are a way to locally give the log a name and define a *log level*. To define a module:
 
@@ -141,9 +139,7 @@ The example `custom_config` shows how to make your own configuration (using the 
 <img align="right" src="docs/img/custom_config.png">
 
 ```
-$ cmake -Dexample=custom_config ..
-$ make
-$ ./custom_config
+$ ./examples/custom_config
 ```
 Two new structures must be defined:
 
@@ -194,9 +190,7 @@ The `custom_type` example is just as the `custom_config`, adding that we are goi
 <img align="right" src="docs/img/custom_type.png">
 
 ```
-$ cmake -Dexample=custom_type ..
-$ make
-$ ./custom_type
+$ ./examples/custom_type
 ```
 
 Defining the *log levels*:

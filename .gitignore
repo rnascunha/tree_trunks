@@ -2,3 +2,7 @@ build/
 .settings/
 .project
 .cproject
+out/
+.vs/
+Debug/
+Release/

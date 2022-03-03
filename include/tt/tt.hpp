@@ -62,15 +62,15 @@ static constexpr Tree_Trunks::type_config<type> const type_config[] = {
 };
 
 static constexpr const Tree_Trunks::config<type> config = {
-	.use_color 				= TT_USE_COLOR,
-	.time 					= TT_USE_TIME,
-	.module 				= TT_USE_MODULE,
-	.ignore_module_level 	= TT_IGNORE_MODULE_LEVEL,
-	.log_name 				= TT_USE_LOG_NAME,
-	.log_sname 				= TT_USE_SHORT_LOG_NAME,
-	.name 					= TT_NAME,
-	.max_level 				= TT_LEVEL,
-	.tp_config 				= type_config
+	/*.use_color 				= */TT_USE_COLOR,
+	/*.time 					= */TT_USE_TIME,
+	/*.module 					= */TT_USE_MODULE,
+	/*.ignore_module_level 		= */TT_IGNORE_MODULE_LEVEL,
+	/*.log_name 				= */TT_USE_LOG_NAME,
+	/*.log_sname 				= */TT_USE_SHORT_LOG_NAME,
+	/*.name 					= */TT_NAME,
+	/*.max_level 				= */TT_LEVEL,
+	/*.tp_config 				= */type_config
 };
 
 #include "functions_conv.hpp"

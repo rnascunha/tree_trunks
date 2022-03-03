@@ -38,10 +38,10 @@
  * nothing change.
  */
 static constexpr const tt::module example_mod = {
-	.name = "example", ///< name of the module to output
-	.max_level = tt::type::status, ///< restrict module log level (if higher than the global, will have no efect
-									///< just checked if TT_IGNORE_MODULE_LEVEL == false
-	.enable = true					///< enable check of max_level
+	/*.name 		= */"example", 			///< name of the module to output
+	/*.max_level 	= */tt::type::status,	///< restrict module log level (if higher than the global, will have no efect
+											///< just checked if TT_IGNORE_MODULE_LEVEL == false
+	/*.enable 		= */true				///< enable check of max_level
 };
 
 /**
