@@ -6,6 +6,12 @@
 #include <cstdarg>
 #include <utility>
 
+#if _MSC_VER
+//Code unreacheble warning at some constexpr expressions
+#pragma warning(push)
+#pragma warning(disable: 4702)
+#endif /* _MSC_VER */
+
 namespace Tree_Trunks{
 
 template<typename Type,
@@ -175,5 +181,9 @@ std::size_t log(const char* format, ...) noexcept
 }
 
 }//Tree_Trunks
+
+#if _MSC_VER
+#pragma warning(pop)
+#endif /* _MSC_VER */
 
 #endif /* TREE_TRUNKS_LOG_IMPL_HPP__ */
