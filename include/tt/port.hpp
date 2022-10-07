@@ -7,7 +7,7 @@
 namespace Tree_Trunks{
 
 using time_t = std::time_t;
-#if defined(_MSC_VER)
+#if defined(_WIN32)
 static constexpr const char* time_str = "%llu";
 #else /* _MSVC_VER */
 static constexpr const char* time_str = "%lu";
