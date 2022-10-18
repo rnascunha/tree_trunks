@@ -6,7 +6,7 @@
 #else /* __cpp_exceptions */
 //https://stackoverflow.com/questions/20461121/constexpr-error-at-compile-time-but-no-overhead-at-run-time
 template<typename T>
-T* runtime_fallback(unsigned x){ return nullptr; }
+T* runtime_fallback(unsigned){ return nullptr; }
 #endif /* __cpp_exceptions */
 
 namespace Tree_Trunks{

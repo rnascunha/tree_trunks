@@ -1,38 +1,47 @@
 cmake_minimum_required (VERSION 3.10)
-project (tree_trunks LANGUAGES CXX VERSION 1.0)
+project (tree_trunks LANGUAGES CXX VERSION 0.1)
 
 option(WITH_EXAMPLES	"compile tree trunks examples" OFF)
 
-if(NOT CMAKE_BUILD_TYPE)
-	set(CMAKE_BUILD_TYPE Release)
-endif()
-
-if(MSVC)
-	set(CMAKE_CXX_FLAGS "/W4 /EHsc")
-	set(CMAKE_CXX_FLAGS_RELEASE "/O2")
-else()
-	set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-parameter -pedantic") 
-	set(CMAKE_CXX_FLAGS_DEBUG "-g")
-	set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-endif()
-
 add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE include) 
+target_include_directories(${PROJECT_NAME} INTERFACE 
+							$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+							$<INSTALL_INTERFACE:include>)
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-if(NOT WITH_EXAMPLES)
-	return()
+#########################
+# Examples				#
+#########################
+
+if(WITH_EXAMPLES)
+	include(examples/examples.cmake)
 endif()
 
-set(EXAMPLES_DIR "examples")
-set(EXAMPLES "tt_default" "custom_config" "custom_type" "modules" "eol" "enable_if")
-set(OUTPUT_DIR "examples")
+#########################
+# Install				#
+#########################
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+	"${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+	VERSION ${PROJECT_VERSION}
+	COMPATIBILITY AnyNewerVersion
+)
 
-foreach(example ${EXAMPLES})
-	add_executable(${example} ${EXAMPLES_DIR}/${example}.cpp)
-	set_target_properties(${example} PROPERTIES
-	    CXX_STANDARD 17
-	    CXX_STANDARD_REQUIRED ON
-	    CXX_EXTENSIONS OFF
-	    RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
-	target_link_libraries(${example} ${PROJECT_NAME})
-endforeach()
+install(TARGETS ${PROJECT_NAME}
+		EXPORT "${PROJECT_NAME}Targets"
+		PUBLIC_HEADER DESTINATION include)
+
+set(INSTALL_FILES "lib/cmake/${PROJECT_NAME}")
+
+configure_package_config_file(
+	"${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+	"${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+	INSTALL_DESTINATION ${INSTALL_FILES})
+
+install(EXPORT "${PROJECT_NAME}Targets" 
+		DESTINATION ${INSTALL_FILES}
+		NAMESPACE ${PROJECT_NAME}::)
+install(FILES 	"${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+				"${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+			DESTINATION ${INSTALL_FILES})
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ DESTINATION include)

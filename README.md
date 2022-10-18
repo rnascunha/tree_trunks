@@ -22,16 +22,23 @@ You can use [git](https://git-scm.com/) to download (as shown below), and, to co
 
 You can download **Tree Trunks** using `git`:
 
-```
+```bash
 $ git clone https://github.com/rnascunha/tree_trunks.git
 $ cd tree_trunks
 ```
 
-Now, just copy the folder `tt` inside `include` to your project, and point the include path accordingly. If you are using CMake, just use `add_subdirectory(<path_to_tree_trunks>)`.
+Now, just copy the folder `tt` inside `include` to your project, and point the include path accordingly. 
+
+If you are using CMake, just use `add_subdirectory(<path_to_tree_trunks>)` and link your application to `tree_trunks::tree_trunks`.
+```cmake
+...
+target_link_libraries(<executable> PUBLIC tree_trunks::tree_trunks)
+...
+```
 
 To test the examples, run:
 
-```
+```bash
 #create a build directory and enter
 $ mkdir build
 $ cd build
@@ -44,6 +51,22 @@ $ ./examples/<example_name>
 ```
 All the examples are outputed to the `examples` directory.
 
+### Install
+
+You can also install `tree_trunks` in your system:
+```bash
+$ cmake --install .
+```
+
+Or in a specific path:
+```bash
+$ cmake --install . --prefix <path_to_install>
+```
+
+Now you can use `cmake` with [find_package](https://cmake.org/cmake/help/latest/command/find_package.html) and just link your applications to `tree_trunks::tree_trunks`.
+
+> :warning: Depending where you install `tree_trunks`, you may need to set  `-DCMAKE_INSTALL_PREFIX=<path_to_install>` or `-Dtree_trunks_DIR=<path_to_install>/lib/cmake/tree_trunks` when running the `cmake` command. 
+
 ## Testing
 
 <img align="right" src="docs/img/apple_pie.png">
@@ -54,14 +77,15 @@ As I think that the best way of learning something is using, let's go throght th
 
 The default configuration is made to use **Tree Trunks** out of the box. The `tt_default` examples is a good starting point.
 
-```
+```bash
 $ ./examples/tt_default
 ```
+
 <img align="right" src="docs/img/tt_default.png">
 
 It defines the follwing *log levels*:
 
-```
+```C++
 enum class type{
 	none = 0,
 	error,
@@ -71,9 +95,10 @@ enum class type{
 	debug,
 };
 ```
+
 You can configure the default behaviour with the folliwing macros, and then including `tt/tt.hpp` header:
 
-```
+```C++
 /**
  * Uncometing any definition below will CHANGE the default behaviour
  */
@@ -99,7 +124,7 @@ You can configure the default behaviour with the folliwing macros, and then incl
 ```
 And the log (convenient) functions are, in a *printf-like* style:
 
-```
+```C++
 tt::debug(/* stream output */, /* module */, format, ...);
 tt::status(/* stream output */, /* module */, format, ...);
 tt::deprecated(/* stream output */, /* module */, format, ...);
@@ -118,18 +143,20 @@ The use of modules can be seen at the `modules` example:
 
 <img align="right" src="docs/img/modules.png">
 
-```
+```bash
 $ ./examples/modules
 ```
+
 Modules are a way to locally give the log a name and define a *log level*. To define a module:
 
-```
+```C++
 static constexpr tt::module <module_name> = {
 	.name = <name>,
 	.max_level = <log_level>,
 	.enable = true
 };
 ```
+
 The `max_level` attribute will decide if the message should or not be displayed (if this attibute is higher than the global definition, it will be ignored). You can change this behaviour setting `enable=false` or globally setting `ignore_module_level/TT_IGNORE_MODULE_LEVEL` equal to `true`.
 
 ### Custom configuration
@@ -138,12 +165,13 @@ The example `custom_config` shows how to make your own configuration (using the 
 
 <img align="right" src="docs/img/custom_config.png">
 
-```
+```bash
 $ ./examples/custom_config
 ```
+
 Two new structures must be defined:
 
-```
+```C++
 /**
  * We are going to use the same level definition of the the default
  */
@@ -179,6 +207,7 @@ static constexpr const Tree_Trunks::config<type> config = {
 
 #include "functions_conv.hpp"
 ```
+
 All configurations are exaplained above. After everything set, it's desirable to define some convience functions, to make the calls friendlier. If will keep this name standard (log level=*type*, type_config<type>=*type_config* and config<type>=*config*), you can use the header `functions_conv.hpp` that will create lots of functions to you.
 
 Check `tt/tt.hpp` to examine how to make other very convinient functions.
@@ -189,13 +218,13 @@ The `custom_type` example is just as the `custom_config`, adding that we are goi
 
 <img align="right" src="docs/img/custom_type.png">
 
-```
+```bash
 $ ./examples/custom_type
 ```
 
 Defining the *log levels*:
 
-```
+```C++
 /**
  * Define the log levels that you want
  */

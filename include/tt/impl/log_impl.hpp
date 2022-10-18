@@ -6,6 +6,12 @@
 #include <cstdarg>
 #include <utility>
 
+#if _MSC_VER
+//Code unreacheble warning at some constexpr expressions
+#pragma warning(push)
+#pragma warning(disable: 4702)
+#endif /* _MSC_VER */
+
 namespace Tree_Trunks{
 
 template<typename Type,
@@ -14,7 +20,7 @@ template<typename Type,
 void color(FILE* stream) noexcept
 {
 	constexpr auto const* config = Config.get_type_config(LogType);
-	if(!config) return;
+	if(config == nullptr) return;
 
 	fprintf(stream, "\x1b[%sm", config->color);
 }
@@ -96,7 +102,7 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 		if (mod.enable && LogType > mod.max_level) return 0;
 
 	constexpr auto const* config = Config.get_type_config(LogType);
-	if(!config) return 0;
+	if(config == nullptr) return 0;
 
 	std::size_t size = 0;
 	if constexpr(Config.use_color) /*should count color chars?*/
@@ -175,5 +181,9 @@ std::size_t log(const char* format, ...) noexcept
 }
 
 }//Tree_Trunks
+
+#if _MSC_VER
+#pragma warning(pop)
+#endif /* _MSC_VER */
 
 #endif /* TREE_TRUNKS_LOG_IMPL_HPP__ */
