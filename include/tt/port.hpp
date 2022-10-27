@@ -7,12 +7,12 @@
 namespace Tree_Trunks{
 
 using time_t = std::time_t;
-#if defined(_WIN32)
+using print_time_type = long long unsigned;
 static constexpr const char* time_str = "%llu";
-#else /* _MSVC_VER */
-static constexpr const char* time_str = "%lu";
-#endif /* _MSVC_VER */
-auto const time_func = []{ return std::time(NULL); };
+
+inline time_t time_func() {
+    return std::time(NULL);
+}
 
 }//Tree_Trunks
 

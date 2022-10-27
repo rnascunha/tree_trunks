@@ -109,7 +109,7 @@ std::size_t log(FILE* stream, module<Type> const& mod [[maybe_unused]], const ch
 		fprintf(stream, "\x1b[%sm", config->color);
 
 	if constexpr(Config.time)
-		size += fprintf(stream, time_str, time_func());
+		size += fprintf(stream, time_str, static_cast<print_time_type>(time_func()));
 
 	if constexpr(Config.name != nullptr)
 		size += fprintf(stream, "|%s", Config.name);
